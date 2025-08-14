@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Listings - Freelancer Hub</title>
+    <!-- Link to shared stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <!-- Header with navigation and call-to-action button -->
+    <header class="site-header">
+        <div class="logo">Freelancer Hub</div>
+        <nav class="navigation">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="job-listings.html">Job Listings</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+        <a href="#" class="cta">Register</a>
+    </header>
+
+    <main>
+        <!-- Job search filters for users to find relevant jobs -->
+        <section class="job-search">
+            <input type="text" placeholder="Search jobs..." aria-label="Search jobs" />
+            <select aria-label="Job type">
+                <option>Job Type</option>
+                <option>Full-Time</option>
+                <option>Part-Time</option>
+                <option>Contract</option>
+            </select>
+            <select aria-label="Salary range">
+                <option>Salary Range</option>
+                <option>$0-50k</option>
+                <option>$50k-100k</option>
+                <option>$100k+</option>
+            </select>
+            <select aria-label="Location">
+                <option>Location</option>
+                <option>Remote</option>
+                <option>USA</option>
+                <option>Canada</option>
+            </select>
+        </section>
+
+        <!-- Job listings displayed in a responsive grid -->
+        <section class="job-grid">
+            <article class="job-card">
+                <h3>Front-End Developer</h3>
+                <p class="description">Build engaging user interfaces for web applications.</p>
+                <p class="location">Remote</p>
+                <a href="#" class="details-btn">View Details</a>
+            </article>
+            <article class="job-card">
+                <h3>Graphic Designer</h3>
+                <p class="description">Create visual concepts for marketing materials.</p>
+                <p class="location">Toronto, Canada</p>
+                <a href="#" class="details-btn">View Details</a>
+            </article>
+            <article class="job-card">
+                <h3>Project Manager</h3>
+                <p class="description">Coordinate cross-functional teams for client projects.</p>
+                <p class="location">New York, USA</p>
+                <a href="#" class="details-btn">View Details</a>
+            </article>
+            <article class="job-card">
+                <h3>Content Writer</h3>
+                <p class="description">Produce high-quality articles and blog posts.</p>
+                <p class="location">London, UK</p>
+                <a href="#" class="details-btn">View Details</a>
+            </article>
+        </section>
+
+        <!-- Pagination controls for navigating job pages -->
+        <div class="pagination">
+            <a href="#" class="page-link">Prev</a>
+            <a href="#" class="page-link active">1</a>
+            <a href="#" class="page-link">2</a>
+            <a href="#" class="page-link">Next</a>
+        </div>
+    </main>
+
+    <!-- Footer with contact info, social links, and disclaimer -->
+    <footer class="site-footer">
+        <div class="contact">
+            <p>Contact: <a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
+            <p>
+                <a href="#" aria-label="Twitter">Twitter</a> |
+                <a href="#" aria-label="LinkedIn">LinkedIn</a> |
+                <a href="#" aria-label="Facebook">Facebook</a>
+            </p>
+        </div>
+        <p class="disclaimer">This website is for a class assignment and not for commercial purposes.</p>
+    </footer>
+</body>
+</html>
