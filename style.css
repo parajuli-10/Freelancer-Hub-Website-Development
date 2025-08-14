@@ -227,3 +227,64 @@ body {
         padding: 1rem;
     }
 }
+/* Profile page styles */
+.profile-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+.profile-sidebar {
+    text-align: center;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.profile-form section {
+    margin-bottom: 1.5rem;
+}
+
+.profile-form h2 {
+    margin-bottom: 0.5rem;
+}
+
+.profile-form input,
+.profile-form textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.save-btn {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.logout-btn {
+    background-color: #dc3545;
+}
+
+.job-list {
+    list-style: disc;
+    padding-left: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        grid-template-columns: 1fr;
+    }
+}
