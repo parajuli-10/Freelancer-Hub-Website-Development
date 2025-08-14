@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Freelancer Hub</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header>
-        <nav>
+    <!-- Header with navigation and call-to-action button -->
+    <header class="site-header">
+        <div class="logo">Freelancer Hub</div>
+        <nav class="navigation">
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">About Us</a></li>
@@ -17,19 +19,31 @@
                 <li><a href="#">Contact Us</a></li>
             </ul>
         </nav>
+        <a href="#" class="cta">Register</a>
     </header>
 
+    <!-- Hero section introducing the platform -->
     <main>
-        <section>
-            <h1>Welcome to Freelancer Hub</h1>
-            <p>Your one-stop platform for connecting freelancers and clients.</p>
-            <button onclick="window.location.href='signup.html'">Sign Up</button>
-            <button onclick="window.location.href='login.html'">Login</button>
+        <section class="hero">
+            <img class="hero-image" src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1350&q=80" alt="Freelancers collaborating" />
+            <div class="hero-text">
+                <h1>Connecting Freelancers and Clients</h1>
+                <p>Freelancer Hub helps talented professionals find their next project while giving businesses access to a global pool of expertise.</p>
+            </div>
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Freelancer Hub | All rights reserved.</p>
+    <!-- Footer with contact info, social links, and disclaimer -->
+    <footer class="site-footer">
+        <div class="contact">
+            <p>Contact: <a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
+            <p>
+                <a href="#" aria-label="Twitter">Twitter</a> |
+                <a href="#" aria-label="LinkedIn">LinkedIn</a> |
+                <a href="#" aria-label="Facebook">Facebook</a>
+            </p>
+        </div>
+        <p class="disclaimer">This website is for a class assignment and not for commercial purposes.</p>
     </footer>
 </body>
 </html>
