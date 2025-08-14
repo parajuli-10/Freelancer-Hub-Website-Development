@@ -20,6 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $skills = $mysqli->real_escape_string($_POST['skills'] ?? '');
         $experience = $mysqli->real_escape_string($_POST['experience'] ?? '');
         $portfolio = $mysqli->real_escape_string($_POST['portfolio'] ?? '');
+        $location = $mysqli->real_escape_string($_POST['location'] ?? '');
+        $job_type = $mysqli->real_escape_string($_POST['job_type'] ?? '');
 
         if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] === UPLOAD_ERR_OK) {
             $upload_dir = 'uploads/';
@@ -32,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mysqli->query("UPDATE freelancers SET profile_pic='$profile_pic' WHERE id=$user_id");
         }
 
-        $mysqli->query("UPDATE freelancers SET bio='$bio', skills='$skills', experience='$experience', portfolio='$portfolio' WHERE id=$user_id");
+        $mysqli->query("UPDATE freelancers SET bio='$bio', skills='$skills', experience='$experience', portfolio='$portfolio', location='$location', job_type='$job_type' WHERE id=$user_id");
     } else {
         $company = $mysqli->real_escape_string($_POST['company'] ?? '');
         $contact = $mysqli->real_escape_string($_POST['contact'] ?? '');
@@ -41,8 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if ($user_type === 'freelancer') {
-    $result = $mysqli->query("SELECT profile_pic, bio, skills, experience, portfolio FROM freelancers WHERE id=$user_id");
+    $result = $mysqli->query("SELECT profile_pic, bio, skills, experience, portfolio, location, job_type FROM freelancers WHERE id=$user_id");
     $user = $result ? $result->fetch_assoc() : [];
+    require_once 'job_matcher.php';
+    $top_matches = getTopJobMatches($mysqli, $user);
 } else {
     $result = $mysqli->query("SELECT company_name, contact_info FROM clients WHERE id=$user_id");
     $user = $result ? $result->fetch_assoc() : [];
@@ -94,6 +98,14 @@ if ($user_type === 'freelancer') {
                     <input type="text" name="skills" value="<?php echo htmlspecialchars($user['skills'] ?? ''); ?>">
                 </section>
                 <section>
+                    <h2>Location</h2>
+                    <input type="text" name="location" value="<?php echo htmlspecialchars($user['location'] ?? ''); ?>">
+                </section>
+                <section>
+                    <h2>Preferred Job Type</h2>
+                    <input type="text" name="job_type" value="<?php echo htmlspecialchars($user['job_type'] ?? ''); ?>">
+                </section>
+                <section>
                     <h2>Experience</h2>
                     <textarea name="experience" rows="4"><?php echo htmlspecialchars($user['experience'] ?? ''); ?></textarea>
                 </section>
@@ -103,6 +115,20 @@ if ($user_type === 'freelancer') {
                 </section>
                 <button type="submit" class="save-btn">Save Profile</button>
             </form>
+            <section>
+                <h2>Recommended Jobs</h2>
+                <ul class="job-list">
+                <?php if (!empty($top_matches)): foreach ($top_matches as $match): ?>
+                    <li>
+                        <strong><?php echo htmlspecialchars($match['title']); ?></strong><br>
+                        <span>Skills Needed: <?php echo htmlspecialchars($match['skills']); ?></span><br>
+                        <span>Match Score: <?php echo (int)$match['match_score']; ?></span>
+                    </li>
+                <?php endforeach; else: ?>
+                    <li>No matching jobs found.</li>
+                <?php endif; ?>
+                </ul>
+            </section>
         <?php else: ?>
             <form method="POST" class="profile-form">
                 <section>
