@@ -129,6 +129,19 @@ if ($user_type === 'freelancer') {
                 <?php endif; ?>
                 </ul>
             </section>
+            <section>
+                <h2>Your Contracts</h2>
+                <ul class="job-list">
+                <?php
+                    $contracts = $mysqli->query("SELECT title, contract_path FROM job_listings WHERE freelancer_id=$user_id AND contract_path IS NOT NULL");
+                    if ($contracts && $contracts->num_rows > 0):
+                        while ($contract = $contracts->fetch_assoc()): ?>
+                        <li><a href="<?php echo htmlspecialchars($contract['contract_path']); ?>" download>Download contract for <?php echo htmlspecialchars($contract['title']); ?></a></li>
+                    <?php endwhile; else: ?>
+                        <li>No contracts available.</li>
+                    <?php endif; ?>
+                </ul>
+            </section>
         <?php else: ?>
             <form method="POST" class="profile-form">
                 <section>
@@ -149,6 +162,19 @@ if ($user_type === 'freelancer') {
                 <?php endwhile; else: ?>
                     <li>No job listings yet.</li>
                 <?php endif; ?>
+                </ul>
+            </section>
+            <section>
+                <h2>Contracts</h2>
+                <ul class="job-list">
+                <?php
+                    $contracts = $mysqli->query("SELECT title, contract_path FROM job_listings WHERE client_id=$user_id AND contract_path IS NOT NULL");
+                    if ($contracts && $contracts->num_rows > 0):
+                        while ($contract = $contracts->fetch_assoc()): ?>
+                        <li><a href="<?php echo htmlspecialchars($contract['contract_path']); ?>" download>Download contract for <?php echo htmlspecialchars($contract['title']); ?></a></li>
+                    <?php endwhile; else: ?>
+                        <li>No contracts available.</li>
+                    <?php endif; ?>
                 </ul>
             </section>
         <?php endif; ?>
