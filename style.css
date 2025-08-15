@@ -186,6 +186,31 @@ body {
     color: #555;
 }
 
+/* Reviews */
+.review-list {
+    list-style: none;
+    padding: 0;
+}
+
+.review-item {
+    border-bottom: 1px solid #ddd;
+    padding: 0.5rem 0;
+}
+
+.rating {
+    color: #f5a623;
+}
+
+.review-link {
+    margin-left: 0.5rem;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.review-link:hover {
+    text-decoration: underline;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .site-header {
