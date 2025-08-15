@@ -14,72 +14,73 @@
         <nav class="navigation">
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="#">About Us</a></li>
+                <li><a href="about.html">About Us</a></li>
                 <li><a href="job-listings.html">Job Listings</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="#" id="loginBtn">Login</a></li>
             </ul>
         </nav>
-        <a href="#" class="cta">Register</a>
+        <a href="#" class="cta" id="registerBtn">Register</a>
     </header>
 
     <main>
         <!-- Job search filters for users to find relevant jobs -->
         <section class="job-search">
-            <input type="text" placeholder="Search jobs..." aria-label="Search jobs" />
-            <select aria-label="Job type">
-                <option>Job Type</option>
-                <option>Full-Time</option>
-                <option>Part-Time</option>
-                <option>Contract</option>
+            <input id="searchInput" type="text" placeholder="Search jobs..." aria-label="Search jobs" />
+            <select id="jobTypeFilter" aria-label="Job type">
+                <option value="">Job Type</option>
+                <option value="Full-Time">Full-Time</option>
+                <option value="Part-Time">Part-Time</option>
+                <option value="Contract">Contract</option>
             </select>
-            <select aria-label="Salary range">
-                <option>Salary Range</option>
-                <option>$0-50k</option>
-                <option>$50k-100k</option>
-                <option>$100k+</option>
+            <select id="salaryFilter" aria-label="Salary range">
+                <option value="">Salary Range</option>
+                <option value="0-50">$0-50k</option>
+                <option value="50-100">$50k-100k</option>
+                <option value="100+">$100k+</option>
             </select>
-            <select aria-label="Location">
-                <option>Location</option>
-                <option>Remote</option>
-                <option>USA</option>
-                <option>Canada</option>
+            <select id="locationFilter" aria-label="Location">
+                <option value="">Location</option>
+                <option value="Remote">Remote</option>
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
             </select>
+            <button id="searchBtn" type="button">Search</button>
         </section>
 
         <!-- Job listings displayed in a responsive grid -->
         <section class="job-grid">
-            <article class="job-card">
+            <article class="job-card" data-type="Full-Time" data-salary="50-100" data-location="Remote">
                 <h3>Front-End Developer</h3>
                 <p class="description">Build engaging user interfaces for web applications.</p>
                 <p class="location">Remote</p>
-                <a href="#" class="details-btn">View Details</a>
+                <a href="job-details.html" class="details-btn">View Details</a>
             </article>
-            <article class="job-card">
+            <article class="job-card" data-type="Contract" data-salary="50-100" data-location="Canada">
                 <h3>Graphic Designer</h3>
                 <p class="description">Create visual concepts for marketing materials.</p>
                 <p class="location">Toronto, Canada</p>
-                <a href="#" class="details-btn">View Details</a>
+                <a href="job-details.html" class="details-btn">View Details</a>
             </article>
-            <article class="job-card">
+            <article class="job-card" data-type="Full-Time" data-salary="100+" data-location="USA">
                 <h3>Project Manager</h3>
                 <p class="description">Coordinate cross-functional teams for client projects.</p>
                 <p class="location">New York, USA</p>
-                <a href="#" class="details-btn">View Details</a>
+                <a href="job-details.html" class="details-btn">View Details</a>
             </article>
-            <article class="job-card">
+            <article class="job-card" data-type="Part-Time" data-salary="0-50" data-location="Remote">
                 <h3>Content Writer</h3>
                 <p class="description">Produce high-quality articles and blog posts.</p>
-                <p class="location">London, UK</p>
-                <a href="#" class="details-btn">View Details</a>
+                <p class="location">Remote</p>
+                <a href="job-details.html" class="details-btn">View Details</a>
             </article>
         </section>
 
         <!-- Pagination controls for navigating job pages -->
         <div class="pagination">
-            <a href="#" class="page-link">Prev</a>
-            <a href="#" class="page-link active">1</a>
-            <a href="#" class="page-link">2</a>
-            <a href="#" class="page-link">Next</a>
+            <a href="#" class="page-link" id="prevBtn">Prev</a>
+            <span class="page-link" id="pageIndicator">1</span>
+            <a href="#" class="page-link" id="nextBtn">Next</a>
         </div>
     </main>
 
@@ -88,12 +89,68 @@
         <div class="contact">
             <p>Contact: <a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
             <p>
-                <a href="#" aria-label="Twitter">Twitter</a> |
-                <a href="#" aria-label="LinkedIn">LinkedIn</a> |
-                <a href="#" aria-label="Facebook">Facebook</a>
+                <a href="https://www.twitter.com/FreelancerHub" target="_blank" aria-label="Twitter">Twitter</a> |
+                <a href="https://www.linkedin.com/company/FreelancerHub" target="_blank" aria-label="LinkedIn">LinkedIn</a> |
+                <a href="https://www.facebook.com/FreelancerHub" target="_blank" aria-label="Facebook">Facebook</a>
             </p>
         </div>
         <p class="disclaimer">This website is for a class assignment and not for commercial purposes.</p>
     </footer>
+    <script>
+        document.getElementById('loginBtn').addEventListener('click', () => {
+            window.location.href = 'login.php';
+        });
+        document.getElementById('registerBtn').addEventListener('click', () => {
+            window.location.href = 'register.php';
+        });
+
+        const jobs = Array.from(document.querySelectorAll('.job-card'));
+        let filteredJobs = jobs;
+        let currentPage = 1;
+        const jobsPerPage = 2;
+
+        function renderJobs() {
+            jobs.forEach(job => job.style.display = 'none');
+            const start = (currentPage - 1) * jobsPerPage;
+            const end = start + jobsPerPage;
+            filteredJobs.slice(start, end).forEach(job => job.style.display = 'flex');
+            document.getElementById('pageIndicator').textContent = currentPage;
+        }
+
+        function applyFilters() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const type = document.getElementById('jobTypeFilter').value;
+            const salary = document.getElementById('salaryFilter').value;
+            const location = document.getElementById('locationFilter').value;
+            filteredJobs = jobs.filter(job => {
+                const matchesSearch = job.querySelector('h3').textContent.toLowerCase().includes(search) ||
+                    job.querySelector('.description').textContent.toLowerCase().includes(search);
+                const matchesType = !type || job.dataset.type === type;
+                const matchesSalary = !salary || job.dataset.salary === salary;
+                const matchesLocation = !location || job.dataset.location === location;
+                return matchesSearch && matchesType && matchesSalary && matchesLocation;
+            });
+            currentPage = 1;
+            renderJobs();
+        }
+
+        document.getElementById('searchBtn').addEventListener('click', applyFilters);
+        document.getElementById('nextBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentPage * jobsPerPage < filteredJobs.length) {
+                currentPage++;
+                renderJobs();
+            }
+        });
+        document.getElementById('prevBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (currentPage > 1) {
+                currentPage--;
+                renderJobs();
+            }
+        });
+
+        renderJobs();
+    </script>
 </body>
 </html>
