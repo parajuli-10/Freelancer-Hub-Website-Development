@@ -47,10 +47,6 @@ if ($user_type === 'freelancer') {
     $user = $result ? $result->fetch_assoc() : [];
     require_once 'job_matcher.php';
     $top_matches = getTopJobMatches($mysqli, $user);
-
-    $avg_res = $mysqli->query("SELECT AVG(rating) AS avg_rating FROM reviews WHERE reviewee_id=$user_id");
-    $avg_rating = $avg_res && $avg_res->num_rows ? round($avg_res->fetch_assoc()['avg_rating'], 1) : null;
-    $reviews = $mysqli->query("SELECT r.rating, r.review, u.name, r.created_at FROM reviews r JOIN users u ON r.reviewer_id=u.id WHERE r.reviewee_id=$user_id ORDER BY r.created_at DESC");
 } else {
     $result = $mysqli->query("SELECT company_name, contact_info FROM clients WHERE id=$user_id");
     $user = $result ? $result->fetch_assoc() : [];
@@ -134,29 +130,13 @@ if ($user_type === 'freelancer') {
                 </ul>
             </section>
             <section>
-                <h2>Reviews</h2>
-                <?php if ($avg_rating !== null): ?>
-                    <p>Average Rating: <?php echo $avg_rating; ?> / 5</p>
-                <?php else: ?>
-                    <p>No reviews yet.</p>
-                <?php endif; ?>
-                <ul class="review-list">
-                <?php if (isset($reviews) && $reviews && $reviews->num_rows > 0): while ($rev = $reviews->fetch_assoc()): ?>
-                    <li class="review-item">
-                        <span class="rating"><?php echo (int)$rev['rating']; ?> / 5</span> - <strong><?php echo htmlspecialchars($rev['name']); ?></strong><br>
-                        <em><?php echo htmlspecialchars($rev['review']); ?></em>
-                    </li>
-                <?php endwhile; endif; ?>
-                </ul>
-            </section>
-            <section>
                 <h2>Your Contracts</h2>
                 <ul class="job-list">
                 <?php
-                    $contracts = $mysqli->query("SELECT id, title, contract_path, status FROM job_listings WHERE freelancer_id=$user_id AND contract_path IS NOT NULL");
+                    $contracts = $mysqli->query("SELECT title, contract_path FROM job_listings WHERE freelancer_id=$user_id AND contract_path IS NOT NULL");
                     if ($contracts && $contracts->num_rows > 0):
                         while ($contract = $contracts->fetch_assoc()): ?>
-                        <li><a href="<?php echo htmlspecialchars($contract['contract_path']); ?>" download>Download contract for <?php echo htmlspecialchars($contract['title']); ?></a><?php if ($contract['status'] === 'completed'): ?> <a href="submit_review.php?job_id=<?php echo (int)$contract['id']; ?>" class="review-link">Leave Review</a><?php endif; ?></li>
+                        <li><a href="<?php echo htmlspecialchars($contract['contract_path']); ?>" download>Download contract for <?php echo htmlspecialchars($contract['title']); ?></a></li>
                     <?php endwhile; else: ?>
                         <li>No contracts available.</li>
                     <?php endif; ?>
@@ -188,10 +168,10 @@ if ($user_type === 'freelancer') {
                 <h2>Contracts</h2>
                 <ul class="job-list">
                 <?php
-                    $contracts = $mysqli->query("SELECT id, title, contract_path, status FROM job_listings WHERE client_id=$user_id AND contract_path IS NOT NULL");
+                    $contracts = $mysqli->query("SELECT title, contract_path FROM job_listings WHERE client_id=$user_id AND contract_path IS NOT NULL");
                     if ($contracts && $contracts->num_rows > 0):
                         while ($contract = $contracts->fetch_assoc()): ?>
-                        <li><a href="<?php echo htmlspecialchars($contract['contract_path']); ?>" download>Download contract for <?php echo htmlspecialchars($contract['title']); ?></a><?php if ($contract['status'] === 'completed'): ?> <a href="submit_review.php?job_id=<?php echo (int)$contract['id']; ?>" class="review-link">Leave Review</a><?php endif; ?></li>
+                        <li><a href="<?php echo htmlspecialchars($contract['contract_path']); ?>" download>Download contract for <?php echo htmlspecialchars($contract['title']); ?></a></li>
                     <?php endwhile; else: ?>
                         <li>No contracts available.</li>
                     <?php endif; ?>
