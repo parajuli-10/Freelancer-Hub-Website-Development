@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
     $confirm = $_POST['confirm_password'] ?? '';
+    $user_type = $_POST['user_type'] ?? 'freelancer';
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = 'Invalid email address';
@@ -20,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$errors) {
         // Simulate user being logged in after registration
         $_SESSION['user_id'] = 1;
+        $_SESSION['user_type'] = $user_type;
         header('Location: profile.php');
         exit();
     }
@@ -45,6 +47,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>Email: <input type="email" name="email" required></label>
         <label>Password: <input type="password" name="password" required></label>
         <label>Confirm Password: <input type="password" name="confirm_password" required></label>
+        <fieldset>
+            <legend>User Type</legend>
+            <label><input type="radio" name="user_type" value="freelancer" checked> Freelancer</label>
+            <label><input type="radio" name="user_type" value="client"> Client</label>
+        </fieldset>
         <button type="submit">Register</button>
     </form>
     <p>Already have an account? <a href="login.php">Login here</a></p>
