@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Freelancer Hub</title>
-    <!-- Link to external stylesheet -->
+    <title>Contact Us - Freelancer Hub</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- Header with navigation and call-to-action button -->
     <header class="site-header">
         <div class="logo">Freelancer Hub</div>
         <nav class="navigation">
@@ -22,19 +20,20 @@
         </nav>
         <a href="#" class="cta" id="registerBtn">Register</a>
     </header>
-
-    <!-- Hero section introducing the platform -->
     <main>
-        <section class="hero">
-            <img class="hero-image" src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1350&q=80" alt="Freelancers collaborating" />
-            <div class="hero-text">
-                <h1>Connecting Freelancers and Clients</h1>
-                <p>Freelancer Hub helps talented professionals find their next project while giving businesses access to a global pool of expertise.</p>
-            </div>
+        <section style="max-width:800px;margin:2rem auto;padding:0 1rem;">
+            <h1>Contact Us</h1>
+            <p>If you have any questions, feel free to reach out using the form below or contact us directly.</p>
+            <form id="contactForm">
+                <label>Name: <input type="text" name="name" required></label>
+                <label>Email: <input type="email" name="email" required></label>
+                <label>Message: <textarea name="message" required></textarea></label>
+                <button type="submit">Submit</button>
+            </form>
+            <p>Email: <a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
+            <p>Phone: +1 (555) 123-4567</p>
         </section>
     </main>
-
-    <!-- Footer with contact info, social links, and disclaimer -->
     <footer class="site-footer">
         <div class="contact">
             <p>Contact: <a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
@@ -52,6 +51,11 @@
         });
         document.getElementById('registerBtn').addEventListener('click', () => {
             window.location.href = 'register.php';
+        });
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Message sent!');
+            e.target.reset();
         });
     </script>
 </body>

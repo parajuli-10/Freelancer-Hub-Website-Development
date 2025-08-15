@@ -103,6 +103,19 @@ body {
     border-radius: 4px;
 }
 
+.job-search button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.job-search button:hover {
+    background-color: #0056b3;
+}
+
 .job-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
