@@ -17,10 +17,10 @@
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="job-listings.html">Job Listings</a></li>
                 <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="#" id="loginBtn">Login</a></li>
+                <li><a href="login.html">Login</a></li>
             </ul>
         </nav>
-        <a href="#" class="cta" id="registerBtn">Register</a>
+        <a href="register.html" class="cta btn">Register</a>
     </header>
 
     <main>
@@ -45,7 +45,7 @@
                 <option value="USA">USA</option>
                 <option value="Canada">Canada</option>
             </select>
-            <button id="searchBtn" type="button">Search</button>
+            <button id="searchBtn" type="button" class="btn">Search</button>
         </section>
 
         <!-- Job listings displayed in a responsive grid -->
@@ -54,33 +54,33 @@
                 <h3>Front-End Developer</h3>
                 <p class="description">Build engaging user interfaces for web applications.</p>
                 <p class="location">Remote</p>
-                <a href="job-details.html" class="details-btn">View Details</a>
+                <a href="job-details.html" class="btn details-btn">View Details</a>
             </article>
             <article class="job-card" data-type="Contract" data-salary="50-100" data-location="Canada">
                 <h3>Graphic Designer</h3>
                 <p class="description">Create visual concepts for marketing materials.</p>
                 <p class="location">Toronto, Canada</p>
-                <a href="job-details.html" class="details-btn">View Details</a>
+                <a href="job-details.html" class="btn details-btn">View Details</a>
             </article>
             <article class="job-card" data-type="Full-Time" data-salary="100+" data-location="USA">
                 <h3>Project Manager</h3>
                 <p class="description">Coordinate cross-functional teams for client projects.</p>
                 <p class="location">New York, USA</p>
-                <a href="job-details.html" class="details-btn">View Details</a>
+                <a href="job-details.html" class="btn details-btn">View Details</a>
             </article>
             <article class="job-card" data-type="Part-Time" data-salary="0-50" data-location="Remote">
                 <h3>Content Writer</h3>
                 <p class="description">Produce high-quality articles and blog posts.</p>
                 <p class="location">Remote</p>
-                <a href="job-details.html" class="details-btn">View Details</a>
+                <a href="job-details.html" class="btn details-btn">View Details</a>
             </article>
         </section>
 
         <!-- Pagination controls for navigating job pages -->
         <div class="pagination">
-            <a href="#" class="page-link" id="prevBtn">Prev</a>
+            <a href="#" class="page-link btn" id="prevBtn">Prev</a>
             <span class="page-link" id="pageIndicator">1</span>
-            <a href="#" class="page-link" id="nextBtn">Next</a>
+            <a href="#" class="page-link btn" id="nextBtn">Next</a>
         </div>
     </main>
 
@@ -97,13 +97,6 @@
         <p class="disclaimer">This website is for a class assignment and not for commercial purposes.</p>
     </footer>
     <script>
-        document.getElementById('loginBtn').addEventListener('click', () => {
-            window.location.href = 'login.php';
-        });
-        document.getElementById('registerBtn').addEventListener('click', () => {
-            window.location.href = 'register.php';
-        });
-
         const jobs = Array.from(document.querySelectorAll('.job-card'));
         let filteredJobs = jobs;
         let currentPage = 1;
@@ -135,6 +128,7 @@
         }
 
         document.getElementById('searchBtn').addEventListener('click', applyFilters);
+        document.getElementById('searchInput').addEventListener('keyup', applyFilters);
         document.getElementById('nextBtn').addEventListener('click', (e) => {
             e.preventDefault();
             if (currentPage * jobsPerPage < filteredJobs.length) {

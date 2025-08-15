@@ -43,17 +43,25 @@ body {
     color: #007bff;
 }
 
-.cta {
+/* Reusable button style */
+.btn {
     padding: 0.5rem 1rem;
     background-color: #007bff;
     color: #fff;
     text-decoration: none;
+    border: none;
     border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
     transition: background-color 0.3s ease;
 }
 
-.cta:hover {
+.btn:hover {
     background-color: #0056b3;
+}
+
+.cta {
+    font-weight: bold;
 }
 
 /* Hero section styles */
@@ -103,18 +111,7 @@ body {
     border-radius: 4px;
 }
 
-.job-search button {
-    padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.job-search button:hover {
-    background-color: #0056b3;
-}
+/* Buttons in job search use the shared .btn class */
 
 .job-grid {
     display: grid;
@@ -147,16 +144,6 @@ body {
 
 .details-btn {
     align-self: flex-start;
-    padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-}
-
-.details-btn:hover {
-    background-color: #0056b3;
 }
 
 .pagination {
@@ -169,16 +156,8 @@ body {
 .page-link {
     padding: 0.5rem 0.75rem;
     border: 1px solid #007bff;
-    color: #007bff;
     text-decoration: none;
     border-radius: 4px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.page-link:hover,
-.page-link.active {
-    background-color: #007bff;
-    color: #fff;
 }
 
 /* Footer styles */
@@ -197,6 +176,28 @@ body {
     margin-top: 1rem;
     font-size: 0.9rem;
     color: #555;
+}
+
+/* Generic section styling */
+.section {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.testimonials {
+    background: #f8f8f8;
+    border-radius: 8px;
+    padding: 2rem 1rem;
+}
+
+.testimonial {
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.faqs details {
+    margin-bottom: 1rem;
 }
 
 /* Responsive adjustments */
