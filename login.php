@@ -1,18 +1,10 @@
 <?php
 session_start();
-require 'db.php';
 
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
-
+// Basic form handling without database logic
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
-        $errors[] = 'Invalid CSRF token';
-    }
-
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
 
@@ -21,19 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (!$errors) {
-        $stmt = $mysqli->prepare('SELECT id, password, role FROM users WHERE email = ?');
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result && $user = $result->fetch_assoc()) {
-            if (password_verify($password, $user['password'])) {
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['user_type'] = $user['role'] === 'freelancer' ? 'freelancer' : 'client';
-                header('Location: profile.php');
-                exit();
-            }
-        }
-        $errors[] = 'Invalid credentials';
+        // Simulate a successful login
+        $_SESSION['user_id'] = 1;
+        header('Location: profile.php');
+        exit();
     }
 }
 ?>
@@ -54,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p class="error"><?php echo htmlspecialchars($error); ?></p>
     <?php endforeach; ?>
     <form method="post" action="">
-        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
         <label>Email: <input type="email" name="email" required></label>
         <label>Password: <input type="password" name="password" required></label>
         <button type="submit">Login</button>
