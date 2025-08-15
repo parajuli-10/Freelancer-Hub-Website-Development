@@ -1,45 +1,27 @@
 <?php
 session_start();
-require 'db.php';
 
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
-
+// Basic registration without database interaction
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
-        $errors[] = 'Invalid CSRF token';
-    }
-
-    $name = trim($_POST['name'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
-    $role = $_POST['role'] ?? '';
+    $confirm = $_POST['confirm_password'] ?? '';
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = 'Invalid email address';
     }
 
-    if (!preg_match('/^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/', $password)) {
-        $errors[] = 'Password must be at least 8 characters long and include a number and a symbol';
-    }
-
-    if ($role !== 'freelancer' && $role !== 'client') {
-        $errors[] = 'Invalid role selected';
+    if ($password !== $confirm) {
+        $errors[] = 'Passwords do not match';
     }
 
     if (!$errors) {
-        $stmt = $mysqli->prepare('INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)');
-        $hash = password_hash($password, PASSWORD_DEFAULT);
-        $stmt->bind_param('ssss', $name, $email, $hash, $role);
-        if ($stmt->execute()) {
-            header('Location: login.php');
-            exit();
-        } else {
-            $errors[] = 'Registration failed';
-        }
+        // Simulate user being logged in after registration
+        $_SESSION['user_id'] = 1;
+        header('Location: profile.php');
+        exit();
     }
 }
 ?>
@@ -60,16 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p class="error"><?php echo htmlspecialchars($error); ?></p>
     <?php endforeach; ?>
     <form method="post" action="">
-        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
-        <label>Name: <input type="text" name="name" required></label>
         <label>Email: <input type="email" name="email" required></label>
         <label>Password: <input type="password" name="password" required></label>
-        <label>Role:
-            <select name="role">
-                <option value="freelancer">Freelancer</option>
-                <option value="client">Client</option>
-            </select>
-        </label>
+        <label>Confirm Password: <input type="password" name="confirm_password" required></label>
         <button type="submit">Register</button>
     </form>
     <p>Already have an account? <a href="login.php">Login here</a></p>
