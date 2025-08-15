@@ -21,16 +21,3 @@ CREATE TABLE job_listings (
     FOREIGN KEY (client_id) REFERENCES users(id),
     FOREIGN KEY (freelancer_id) REFERENCES users(id)
 );
-
-CREATE TABLE reviews (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    job_id INT NOT NULL,
-    reviewer_id INT NOT NULL,
-    reviewee_id INT NOT NULL,
-    rating INT NOT NULL,
-    review TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (job_id) REFERENCES job_listings(id),
-    FOREIGN KEY (reviewer_id) REFERENCES users(id),
-    FOREIGN KEY (reviewee_id) REFERENCES users(id)
-);
