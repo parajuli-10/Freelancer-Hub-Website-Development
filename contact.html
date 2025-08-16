@@ -8,18 +8,28 @@
 </head>
 <body>
     <header class="site-header">
-        <div class="logo">Freelancer Hub</div>
-        <nav class="navigation">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="job-listings.html">Job Listings</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="login.html">Login</a></li>
-            </ul>
-        </nav>
-        <a href="register.html" class="cta btn">Register</a>
-    </header>
+    <div class="logo">Freelancer Hub</div>
+    <nav class="navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="job-listings.html">Job Listings</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+
+        <li class="guest-only"><a href="login.html">Login</a></li>
+        <li class="guest-only"><a class="cta btn" href="register.html">Register</a></li>
+
+        <li class="auth-only for-freelancer"><a href="saved.html">Saved Jobs</a></li>
+        <li class="auth-only for-freelancer"><a href="applications.html">My Applications</a></li>
+
+        <li class="auth-only for-client"><a href="post-job.html">Post a Job</a></li>
+        <li class="auth-only for-client"><a href="my-jobs.html">My Jobs</a></li>
+
+        <li class="auth-only"><a href="profile.html">Profile</a></li>
+        <li class="auth-only"><a href="logout.html">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
     <main>
         <section style="max-width:800px;margin:2rem auto;padding:0 1rem;">
             <h1>Contact Us</h1>
@@ -59,5 +69,6 @@
             e.target.reset();
         });
     </script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>

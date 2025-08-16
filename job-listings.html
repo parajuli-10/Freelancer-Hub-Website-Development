@@ -8,27 +8,52 @@
 </head>
 <body>
     <header class="site-header">
-        <div class="logo">Freelancer Hub</div>
-        <nav class="navigation">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="job-listings.html">Job Listings</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="login.html">Login</a></li>
-            </ul>
-        </nav>
-        <a href="register.html" class="cta btn">Register</a>
-    </header>
+    <div class="logo">Freelancer Hub</div>
+    <nav class="navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="job-listings.html">Job Listings</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+
+        <li class="guest-only"><a href="login.html">Login</a></li>
+        <li class="guest-only"><a class="cta btn" href="register.html">Register</a></li>
+
+        <li class="auth-only for-freelancer"><a href="saved.html">Saved Jobs</a></li>
+        <li class="auth-only for-freelancer"><a href="applications.html">My Applications</a></li>
+
+        <li class="auth-only for-client"><a href="post-job.html">Post a Job</a></li>
+        <li class="auth-only for-client"><a href="my-jobs.html">My Jobs</a></li>
+
+        <li class="auth-only"><a href="profile.html">Profile</a></li>
+        <li class="auth-only"><a href="logout.html">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
     <main>
-        <section style="max-width:800px;margin:2rem auto;padding:0 1rem;">
-            <h1>Job Listings</h1>
-            <ul>
-                <li><a href="job-details.html">Sample Job 1</a></li>
-                <li><a href="job-details.html">Sample Job 2</a></li>
-            </ul>
-        </section>
-    </main>
+<section style="max-width:1100px;margin:2rem auto;padding:0 1rem;">
+  <h1>Job Listings</h1>
+  <form id="filters" class="filters" novalidate>
+    <input id="filter-q" placeholder="Search jobs…">
+    <input id="filter-location" placeholder="Location">
+    <select id="filter-type">
+      <option value="">Any type</option><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Casual</option>
+    </select>
+    <select id="filter-remote">
+      <option value="">On-site/Hybrid/Remote</option><option>On-site</option><option>Hybrid</option><option>Remote</option>
+    </select>
+    <input id="filter-salary-min" type="number" placeholder="Min salary">
+    <input id="filter-salary-max" type="number" placeholder="Max salary">
+    <select id="filter-age">
+      <option value="">Any time</option><option value="1">Last 24h</option><option value="7">Last 7 days</option><option value="30">Last 30 days</option>
+    </select>
+    <button type="submit" class="btn">Apply Filters</button>
+  </form>
+
+  <div id="jobs-list" class="cards" style="margin-top:1rem;"></div>
+  <div id="pagination" class="pagination" style="margin:1rem 0;"></div>
+</section>
+</main>
     <footer class="site-footer">
         <div class="contact">
             <p>Contact: <a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
@@ -40,5 +65,6 @@
         </div>
         <p class="disclaimer">This website is for a class assignment and not for commercial purposes.</p>
     </footer>
+<script src="assets/js/app.js"></script>
 </body>
 </html>
