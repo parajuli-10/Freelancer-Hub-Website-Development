@@ -57,8 +57,8 @@
       case 'profile.html': return controllerProfile();
       case 'job-listings.html': return controllerListings();
       case 'job-details.html': return controllerJobDetails();
-      case 'saved.html': return controllerSaved();
-      case 'applications.html': return controllerApplications();
+      case 'saved-jobs.html': return controllerSaved();
+      case 'my-applications.html': return controllerApplications();
       case 'post-job.html': return controllerPostJob();
       case 'my-jobs.html': return controllerMyJobs();
     }
@@ -118,8 +118,8 @@
       const newest = jobs.filter(j=>j.status==='open').sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)).slice(0,3);
       panels.innerHTML = `
         <div class="cards">
-          <div class="card"><a href="saved.html" class="btn">Saved Jobs</a></div>
-          <div class="card"><a href="applications.html" class="btn">My Applications</a></div>
+          <div class="card"><a href="saved-jobs.html" class="btn">Saved Jobs</a></div>
+          <div class="card"><a href="my-applications.html" class="btn">My Applications</a></div>
         </div>
         <h2 style="margin-top:1.5rem;">Newest Jobs</h2>
         <ul>
