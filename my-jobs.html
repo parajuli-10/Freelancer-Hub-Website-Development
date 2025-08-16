@@ -34,12 +34,9 @@
       </ul>
     </nav>
   </header>
-  <main>
-<section style="max-width:1000px;margin:2rem auto;padding:0 1rem;">
-  <h1>My Jobs</h1>
-  <div id="my-jobs"></div>
-</section>
-  </main>
+
+<div id="my-jobs" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"></div>
+
   <footer class="site-footer">
     <div class="contact">
       <p>Contact: <a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
@@ -52,6 +49,13 @@
     <p class="disclaimer">This website is for a class assignment and not for commercial purposes.</p>
   </footer>
 <script src="assets/js/auth-demo.js"></script>
-<script src="assets/js/app.js"></script>
+<script src="assets/js/app-demo.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    window.appDemo.requireAuth('client');
+    const u = window.appDemo.currentUser();
+    window.appDemo.renderMyJobs('#my-jobs', u.email);
+  });
+</script>
 </body>
 </html>

@@ -34,26 +34,29 @@
       </ul>
     </nav>
   </header>
-  <main>
-<section style="max-width:700px;margin:2rem auto;padding:0 1rem;">
-  <h1>Post a Job</h1>
-  <div class="error-list" role="alert" aria-live="polite"></div>
-  <form id="post-job" novalidate>
-    <label>Title <input id="job-title" required></label>
-    <label>Company <input id="job-company" required></label>
-    <label>Location <input id="job-location" required></label>
-    <label>Salary <input id="job-salary" type="number" min="0"></label>
-    <label>Type
-      <select id="job-type" required><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Casual</option></select>
-    </label>
-    <label>Remote
-      <select id="job-remote" required><option>On-site</option><option>Hybrid</option><option>Remote</option></select>
-    </label>
-    <label>Description <textarea id="job-desc" required></textarea></label>
-    <button class="btn" type="submit">Publish</button>
-  </form>
-</section>
-  </main>
+<main>
+  <section class="section" style="max-width:700px;margin:2rem auto;padding:0 1rem;">
+    <h1>Post a Job</h1>
+    <form id="post-job" novalidate>
+      <label for="title">Job Title</label>
+      <input id="title" required>
+      <label for="desc">Description</label>
+      <textarea id="desc" required></textarea>
+      <label for="loc">Location</label>
+      <input id="loc" required>
+      <label for="type">Employment Type</label>
+      <select id="type" required>
+        <option value="Full-time">Full-time</option>
+        <option value="Part-time">Part-time</option>
+        <option value="Contract">Contract</option>
+        <option value="Internship">Internship</option>
+      </select>
+      <label for="salary">Salary (e.g., 80000)</label>
+      <input id="salary" type="number" min="0" step="100" required>
+      <button class="btn" type="submit">Create Job</button>
+    </form>
+  </section>
+</main>
   <footer class="site-footer">
     <div class="contact">
       <p>Contact: <a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
@@ -66,6 +69,25 @@
     <p class="disclaimer">This website is for a class assignment and not for commercial purposes.</p>
   </footer>
 <script src="assets/js/auth-demo.js"></script>
-<script src="assets/js/app.js"></script>
+<script src="assets/js/app-demo.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    window.appDemo.requireAuth('client');
+    const form = document.getElementById('post-job');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const u = window.appDemo.currentUser();
+      window.appDemo.createJob({
+        title: document.getElementById('title').value.trim(),
+        description: document.getElementById('desc').value.trim(),
+        location: document.getElementById('loc').value.trim(),
+        employmentType: document.getElementById('type').value,
+        salary: Number(document.getElementById('salary').value),
+        clientEmail: u.email,
+      });
+      location.href = 'my-jobs.html';
+    });
+  });
+</script>
 </body>
 </html>
