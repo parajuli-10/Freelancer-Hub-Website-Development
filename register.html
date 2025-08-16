@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register - Freelancer Hub</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">Freelancer Hub</div>
+    <nav class="navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="job-listings.html">Job Listings</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+    <a href="register.html" class="cta btn">Register</a>
+  </header>
+  <main>
+    <section style="max-width:480px;margin:2rem auto;padding:0 1rem;">
+      <h1>Create Your Account</h1>
+      <div class="error-list" role="alert" aria-live="polite"></div>
+      <form novalidate>
+        <label for="email">Email</label>
+        <input id="email" type="email" required>
+
+        <label for="password">Password</label>
+        <input id="password" type="password" required>
+
+        <label for="confirm_password">Confirm Password</label>
+        <input id="confirm_password" type="password" required>
+
+        <fieldset style="margin:.75rem 0;">
+          <legend>User Type</legend>
+          <label><input type="radio" name="user_type" value="freelancer" checked> Freelancer</label>
+          <label><input type="radio" name="user_type" value="client"> Client</label>
+        </fieldset>
+
+        <button type="submit" class="btn">Register</button>
+      </form>
+      <p style="margin-top:1rem;">Already have an account? <a href="login.html">Login here</a></p>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="contact">
+      <p>Contact: <a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
+      <p>
+        <a href="https://www.twitter.com/FreelancerHub" target="_blank" aria-label="Twitter">Twitter</a> |
+        <a href="https://www.linkedin.com/company/FreelancerHub" target="_blank" aria-label="LinkedIn">LinkedIn</a> |
+        <a href="https://www.facebook.com/FreelancerHub" target="_blank" aria-label="Facebook">Facebook</a>
+      </p>
+    </div>
+    <p class="disclaimer">This website is for a class assignment and not for commercial purposes.</p>
+  </footer>
+  <script src="assets/js/auth-demo.js"></script>
+</body>
+</html>
