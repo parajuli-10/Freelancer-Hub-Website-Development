@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Basic form handling without database logic
+// Collect errors here so we can render them under the form if needed
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -9,46 +9,95 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
     $user_type = $_POST['user_type'] ?? 'freelancer';
 
+    // Basic validation
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = 'Invalid email address';
+        $errors[] = 'Please enter a valid email address.';
+    }
+    if ($password === '') {
+        $errors[] = 'Password is required.';
     }
 
+    // If no errors, simulate a successful login and redirect
     if (!$errors) {
-        // Simulate a successful login
-        $_SESSION['user_id'] = 1;
+        $_SESSION['user_id']   = 1; // TODO: replace with real user id from DB
         $_SESSION['user_type'] = $user_type;
+        $_SESSION['email']     = $email;
         header('Location: profile.php');
         exit();
     }
 }
+
+// If GET request or POST with errors, fall through to render the form
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Login</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login - Freelancer Hub</title>
+    <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 <header class="site-header">
     <div class="logo">Freelancer Hub</div>
+    <nav class="navigation">
+        <ul>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="about.php">About Us</a></li>
+            <li><a href="job-listings.php">Job Listings</a></li>
+            <li><a href="contact.php">Contact Us</a></li>
+            <li><a href="login.php" aria-current="page">Login</a></li>
+        </ul>
+    </nav>
+    <a href="register.php" class="cta btn">Register</a>
 </header>
-<div class="form-container">
-    <?php foreach ($errors as $error): ?>
-        <p class="error"><?php echo htmlspecialchars($error); ?></p>
-    <?php endforeach; ?>
-    <form method="post" action="">
-        <label>Email: <input type="email" name="email" required></label>
-        <label>Password: <input type="password" name="password" required></label>
-        <fieldset>
-            <legend>User Type</legend>
-            <label><input type="radio" name="user_type" value="freelancer" checked> Freelancer</label>
-            <label><input type="radio" name="user_type" value="client"> Client</label>
-        </fieldset>
-        <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="register.php">Register</a></p>
-</div>
+
+<main>
+    <section style="max-width:480px;margin:2rem auto;padding:0 1rem;">
+        <h1>Login</h1>
+
+        <?php if ($errors): ?>
+            <div class="error-list" role="alert" aria-live="polite" style="margin:.75rem 0;">
+                <?php foreach ($errors as $error): ?>
+                    <p class="error"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+
+        <form method="post" action="login.php" class="form" novalidate>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email"
+                   value="<?php echo isset($email) ? htmlspecialchars($email, ENT_QUOTES, 'UTF-8') : '';?>"
+                   required>
+
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" required>
+
+            <fieldset style="margin:.75rem 0;">
+                <legend>User Type</legend>
+                <label><input type="radio" name="user_type" value="freelancer"
+                    <?php echo (!isset($user_type) || $user_type === 'freelancer') ? 'checked' : ''; ?>> Freelancer</label>
+                <label><input type="radio" name="user_type" value="client"
+                    <?php echo (isset($user_type) && $user_type === 'client') ? 'checked' : ''; ?>> Client</label>
+            </fieldset>
+
+            <button type="submit" class="btn">Login</button>
+        </form>
+
+        <p style="margin-top:1rem;">Don't have an account? <a href="register.php">Register</a></p>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="contact">
+        <p>Contact: <a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
+        <p>
+            <a href="https://www.twitter.com/FreelancerHub" target="_blank" rel="noopener" aria-label="Twitter">Twitter</a> |
+            <a href="https://www.linkedin.com/company/FreelancerHub" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a> |
+            <a href="https://www.facebook.com/FreelancerHub" target="_blank" rel="noopener" aria-label="Facebook">Facebook</a>
+        </p>
+    </div>
+    <p class="disclaimer">This website is for a class assignment and not for commercial purposes.</p>
+</footer>
 </body>
 </html>

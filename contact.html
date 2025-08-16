@@ -15,19 +15,25 @@
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="job-listings.html">Job Listings</a></li>
                 <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="login.php">Login</a></li>
+                <li><a href="login.html">Login</a></li>
             </ul>
         </nav>
-        <a href="register.php" class="cta btn">Register</a>
+        <a href="register.html" class="cta btn">Register</a>
     </header>
     <main>
         <section style="max-width:800px;margin:2rem auto;padding:0 1rem;">
             <h1>Contact Us</h1>
             <p>If you have any questions, feel free to reach out using the form below or contact us directly.</p>
-            <form id="contactForm">
-                <label>Name: <input type="text" name="name" required></label>
-                <label>Email: <input type="email" name="email" required></label>
-                <label>Message: <textarea name="message" required></textarea></label>
+            <form id="contactForm" novalidate>
+                <label for="name">Name:</label>
+                <input id="name" type="text" name="name" required>
+
+                <label for="email">Email:</label>
+                <input id="email" type="email" name="email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+
                 <button type="submit" class="btn">Submit</button>
             </form>
             <p>Email: <a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
@@ -39,9 +45,9 @@
         <div class="contact">
             <p>Contact: <a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
             <p>
-                <a href="https://www.twitter.com/FreelancerHub" target="_blank" aria-label="Twitter">Twitter</a> |
-                <a href="https://www.linkedin.com/company/FreelancerHub" target="_blank" aria-label="LinkedIn">LinkedIn</a> |
-                <a href="https://www.facebook.com/FreelancerHub" target="_blank" aria-label="Facebook">Facebook</a>
+                <a href="https://www.twitter.com/FreelancerHub" target="_blank" rel="noopener" aria-label="Twitter">Twitter</a> |
+                <a href="https://www.linkedin.com/company/FreelancerHub" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a> |
+                <a href="https://www.facebook.com/FreelancerHub" target="_blank" rel="noopener" aria-label="Facebook">Facebook</a>
             </p>
         </div>
         <p class="disclaimer">This website is for a class assignment and not for commercial purposes.</p>
