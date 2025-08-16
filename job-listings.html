@@ -34,29 +34,11 @@
       </ul>
     </nav>
   </header>
-    <main>
-<section style="max-width:1100px;margin:2rem auto;padding:0 1rem;">
-  <h1>Job Listings</h1>
-  <form id="filters" class="filters" novalidate>
-    <input id="filter-q" placeholder="Search jobs…">
-    <input id="filter-location" placeholder="Location">
-    <select id="filter-type">
-      <option value="">Any type</option><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Casual</option>
-    </select>
-    <select id="filter-remote">
-      <option value="">On-site/Hybrid/Remote</option><option>On-site</option><option>Hybrid</option><option>Remote</option>
-    </select>
-    <input id="filter-salary-min" type="number" placeholder="Min salary">
-    <input id="filter-salary-max" type="number" placeholder="Max salary">
-    <select id="filter-age">
-      <option value="">Any time</option><option value="1">Last 24h</option><option value="7">Last 7 days</option><option value="30">Last 30 days</option>
-    </select>
-    <button type="submit" class="btn">Apply Filters</button>
-  </form>
-
-  <div id="jobs-list" class="cards" style="margin-top:1rem;"></div>
-  <div id="pagination" class="pagination" style="margin:1rem 0;"></div>
-</section>
+<main>
+  <section class="section" style="max-width:1000px;margin:2rem auto;padding:0 1rem;">
+    <h1>Job Listings</h1>
+    <div id="job-list"></div>
+  </section>
 </main>
     <footer class="site-footer">
         <div class="contact">
@@ -70,6 +52,11 @@
         <p class="disclaimer">This website is for a class assignment and not for commercial purposes.</p>
     </footer>
 <script src="assets/js/auth-demo.js"></script>
-<script src="assets/js/app.js"></script>
+<script src="assets/js/app-demo.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    window.appDemo.renderJobs('#job-list');
+  });
+</script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Applications - Freelancer Hub</title>
+  <title>Freelancer Dashboard - Freelancer Hub</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -34,9 +34,12 @@
       </ul>
     </nav>
   </header>
-
-<div id="apps-list" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"></div>
-
+<main>
+  <section class="section" style="max-width:900px;margin:2rem auto;padding:0 1rem;">
+    <h1>Freelancer Dashboard</h1>
+    <div id="freelancer-stats"></div>
+  </section>
+</main>
   <footer class="site-footer">
     <div class="contact">
       <p>Contact: <a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
@@ -53,8 +56,7 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     window.appDemo.requireAuth('freelancer');
-    const u = window.appDemo.currentUser();
-    window.appDemo.renderMyApplications('#apps-list', u.email);
+    window.appDemo.renderFreelancerStats('#freelancer-stats');
   });
 </script>
 </body>
