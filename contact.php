@@ -11,14 +11,14 @@
         <div class="logo">Freelancer Hub</div>
         <nav class="navigation">
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="job-listings.html">Job Listings</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="login.html">Login</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="about.php">About Us</a></li>
+                <li><a href="job-listings.php">Job Listings</a></li>
+                <li><a href="contact.php">Contact Us</a></li>
+                <li><a href="login.php">Login</a></li>
             </ul>
         </nav>
-        <a href="register.html" class="cta btn">Register</a>
+        <a href="register.php" class="cta btn">Register</a>
     </header>
     <main>
         <section style="max-width:800px;margin:2rem auto;padding:0 1rem;">
