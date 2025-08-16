@@ -1,6 +1,47 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Logging out...</title></head><body>
-<p>Logging out…</p>
-<script src="assets/js/auth-demo.js"></script>
-</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logging out...</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">Freelancer Hub</div>
+    <nav class="navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="job-listings.html">Job Listings</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+
+        <li class="guest-only"><a href="login.html">Login</a></li>
+        <li class="guest-only"><a class="cta btn" href="register.html">Register</a></li>
+
+        <li class="auth-only for-freelancer"><a href="saved.html">Saved Jobs</a></li>
+        <li class="auth-only for-freelancer"><a href="applications.html">My Applications</a></li>
+
+        <li class="auth-only for-client"><a href="post-job.html">Post a Job</a></li>
+        <li class="auth-only for-client"><a href="my-jobs.html">My Jobs</a></li>
+
+        <li class="auth-only"><a href="profile.html">Profile</a></li>
+        <li class="auth-only"><a href="logout.html">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main><p>Logging out…</p></main>
+  <footer class="site-footer">
+    <div class="contact">
+      <p>Contact: <a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
+      <p>
+        <a href="https://www.twitter.com/FreelancerHub" target="_blank" aria-label="Twitter">Twitter</a> |
+        <a href="https://www.linkedin.com/company/FreelancerHub" target="_blank" aria-label="LinkedIn">LinkedIn</a> |
+        <a href="https://www.facebook.com/FreelancerHub" target="_blank" aria-label="Facebook">Facebook</a>
+      </p>
+    </div>
+    <p class="disclaimer">This website is for a class assignment and not for commercial purposes.</p>
+  </footer>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

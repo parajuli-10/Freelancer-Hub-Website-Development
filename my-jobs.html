@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login - Freelancer Hub</title>
+  <title>My Jobs - Freelancer Hub</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -31,26 +31,10 @@
     </nav>
   </header>
   <main>
-    <section style="max-width:480px;margin:2rem auto;padding:0 1rem;">
-      <h1>Login</h1>
-      <div class="error-list" role="alert" aria-live="polite"></div>
-      <form novalidate>
-        <label for="email">Email</label>
-        <input id="email" type="email" required>
-
-        <label for="password">Password</label>
-        <input id="password" type="password" required>
-
-        <fieldset style="margin:.75rem 0;">
-          <legend>User Type</legend>
-          <label><input type="radio" name="user_type" value="freelancer" checked> Freelancer</label>
-          <label><input type="radio" name="user_type" value="client"> Client</label>
-        </fieldset>
-
-        <button type="submit" class="btn">Login</button>
-      </form>
-      <p style="margin-top:1rem;">Don't have an account? <a href="register.html">Register</a></p>
-    </section>
+<section style="max-width:1000px;margin:2rem auto;padding:0 1rem;">
+  <h1>My Jobs</h1>
+  <div id="my-jobs"></div>
+</section>
   </main>
   <footer class="site-footer">
     <div class="contact">
