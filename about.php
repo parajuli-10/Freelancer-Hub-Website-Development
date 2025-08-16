@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Details - Freelancer Hub</title>
+    <title>About Us - Freelancer Hub</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -11,21 +11,25 @@
         <div class="logo">Freelancer Hub</div>
         <nav class="navigation">
             <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="job-listings.html">Job Listings</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="login.html">Login</a></li>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="about.php">About Us</a></li>
+                <li><a href="job-listings.php">Job Listings</a></li>
+                <li><a href="contact.php">Contact Us</a></li>
+                <li><a href="login.php">Login</a></li>
             </ul>
         </nav>
-        <a href="register.html" class="cta btn">Register</a>
+        <a href="register.php" class="cta btn">Register</a>
     </header>
     <main>
         <section style="max-width:800px;margin:2rem auto;padding:0 1rem;">
-            <h1>Job Title</h1>
-            <p><strong>Description:</strong> Detailed information about the job goes here.</p>
-            <p><strong>Requirements:</strong> List of requirements for the role.</p>
-            <p><strong>Contact:</strong> <a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
+            <h1>About Freelancer Hub</h1>
+            <p>Freelancer Hub connects skilled freelancers with clients seeking expertise across a variety of disciplines. Our mission is to empower independent professionals and help businesses find the talent they need.</p>
+            <h2>Our Mission</h2>
+            <p>To create a thriving ecosystem where freelancers can grow their careers and clients can hire with confidence.</p>
+            <h2>Our Vision</h2>
+            <p>We envision a world where work is flexible, accessible, and rewarding for everyone.</p>
+            <h2>How It Works</h2>
+            <p>Clients post projects, freelancers apply, and both parties collaborate through our intuitive platform.</p>
         </section>
     </main>
     <footer class="site-footer">
