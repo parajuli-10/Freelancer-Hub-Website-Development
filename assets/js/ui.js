@@ -24,11 +24,21 @@
     const backdrop = document.createElement('div');
     backdrop.className='modal-backdrop';
     backdrop.setAttribute('data-modal','');
-    backdrop.innerHTML = `\n  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">\n    <div class="modal-header"><h3 id="modal-title">${opts.title||''}</h3><button class="icon-btn" aria-label="Close" data-close>&times;</button></div>\n    <div class="modal-body">${opts.contentHTML||''}</div>\n    <div class="modal-footer">\n      <button class="btn ghost" data-cancel>${opts.cancelText||'Cancel'}</button>\n      <button class="btn" data-submit>${opts.submitText||'Save'}</button>\n    </div>\n  </div>`;
+    backdrop.innerHTML = `
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-header">
+      <h3 id="modal-title">${opts.title||''}</h3>
+      <button class="icon-btn" aria-label="Close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">${opts.contentHTML||''}</div>
+    <div class="modal-footer">
+      <button class="btn ghost" data-cancel>${opts.cancelText||'Cancel'}</button>
+      <button class="btn" data-submit>${opts.submitText||'Save'}</button>
+    </div>
+  </div>`;
     document.body.appendChild(backdrop);
-    const modal = backdrop.querySelector('.modal');
     const firstFocus = backdrop.querySelector('[data-close]');
-    firstFocus.focus();
+    firstFocus && firstFocus.focus();
 
     function close(){
       document.removeEventListener('keydown', trap);
@@ -37,7 +47,11 @@
     backdrop.addEventListener('click', e=>{ if(e.target===backdrop) close(); });
     backdrop.querySelector('[data-close]').addEventListener('click', close);
     backdrop.querySelector('[data-cancel]').addEventListener('click', ()=>{ close(); opts.onCancel && opts.onCancel(); });
-    backdrop.querySelector('[data-submit]').addEventListener('click', ()=>{ const res = opts.onSubmit && opts.onSubmit(); if(res!==false) close(); });
+    backdrop.querySelector('[data-submit]').addEventListener('click', ()=>{
+      const res = opts.onSubmit && opts.onSubmit();
+      if(res!==false) close();
+    });
+
     function trap(e){
       if(e.key==='Escape') close();
       if(e.key==='Tab'){
@@ -127,10 +141,15 @@
   document.addEventListener('DOMContentLoaded', ()=>{
     UI.initThemeToggle();
     initHeader();
-    const path = (new URLSearchParams(location.search).get('url') || location.pathname).split('/').pop();
+
+    // Mark active nav link (works locally and on html-preview.github.io)
+    const paramUrl = new URLSearchParams(location.search).get('url');
+    const path = (paramUrl ? new URL(paramUrl).pathname : location.pathname).split('/').pop() || 'index.html';
     document.querySelectorAll('.navigation a').forEach(a=>{
-      if(a.getAttribute('href')===path) a.classList.add('active');
+      const href = (a.getAttribute('href') || '').split('/').pop();
+      if(href === path) a.classList.add('active');
     });
+
     if(window.feather) feather.replace();
   });
 
