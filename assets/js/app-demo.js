@@ -152,16 +152,14 @@
       const saved = u && u.user_type === 'freelancer' ? isSaved(j.id, u.email) : false;
       const mine = u && u.user_type === 'client' && (j.clientEmail||'').toLowerCase() === u.email.toLowerCase();
       return `
-        <div class="card" data-id="${j.id}" style="padding:1rem;margin:1rem 0;border:1px solid #eee;border-radius:12px;">
+        <div class="card stack" data-id="${j.id}">
           <h3>${esc(j.title)}</h3>
-          <p><strong>${esc(j.location)}</strong> • ${esc(j.employmentType)} • <strong>${fmtMoney(j.salary)}</strong></p>
-          <p>${esc(j.description).slice(0, 180)}${j.description.length>180?'…':''}</p>
-          <p class="muted">Posted ${when(j.createdAt)}</p>
-          <div class="actions">
-            ${u && u.user_type === 'freelancer' ? `
-              <button class="btn save-btn">${saved ? 'Unsave' : 'Save'}</button>
-              <button class="btn apply-btn">Apply</button>
-            ` : ''}
+          <div class="row meta">
+            <span>${esc(j.location)}</span> • <span>${esc(j.employmentType)}</span> • <span>${fmtMoney(j.salary)}</span>
+          </div>
+          <p class="muted">${esc(j.description).slice(0, 120)}${j.description.length>120?'…':''}</p>
+          <div class="row">
+            ${u && u.user_type === 'freelancer' ? `<button class="btn save-btn">${saved ? 'Unsave' : 'Save'}</button><button class="btn apply-btn">Apply</button>` : ''}
             ${mine ? `<button class="btn danger delete-btn">Delete</button>` : ''}
           </div>
         </div>`;

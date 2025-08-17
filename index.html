@@ -1,113 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Freelancer Hub</title>
-    <!-- Link to external stylesheet -->
-    <link rel="stylesheet" href="style.css" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="manifest" href="assets/site.webmanifest">
-<link rel="stylesheet" href="assets/css/theme.css">
-<script src="https://unpkg.com/feather-icons"></script>
-<script>document.addEventListener('DOMContentLoaded', () => { if (window.feather) feather.replace(); });</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Freelancer Hub</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="assets/site.webmanifest">
+  <link rel="stylesheet" href="assets/css/theme.css">
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script>document.addEventListener('DOMContentLoaded',()=>{if(window.feather) feather.replace();});</script>
 </head>
 <body>
-    <!-- Header with navigation and call-to-action button -->
-    <header class="site-header">
+<header class="site-header">
+  <div class="container bar">
     <div class="logo">Freelancer Hub</div>
-        <nav class="navigation">
-      <ul>
-        <li class="always"><a href="index.html">Home</a></li>
-        <li class="always"><a href="about.html">About Us</a></li>
-        <li class="always"><a href="job-listings.html">Job Listings</a></li>
-        <li class="always"><a href="contact.html">Contact Us</a></li>
-
-        <!-- visible only when NOT logged in -->
+    <button class="menu-toggle" aria-label="Menu">&#9776;</button>
+    <nav class="navigation">
+      <ul class="nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="job-listings.html">Job Listings</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
         <li class="guest-only"><a href="login.html">Login</a></li>
-        <li class="guest-only"><a href="register.html" class="cta btn">Register</a></li>
-
-        <!-- visible only when logged in, any role -->
+        <li class="guest-only"><a href="register.html">Register</a></li>
         <li class="auth-only" data-roles="any"><a href="profile.html">Profile</a></li>
         <li class="auth-only" data-roles="any"><a href="logout.html">Logout</a></li>
-
-        <!-- visible only when logged in as freelancer -->
         <li class="auth-only" data-roles="freelancer"><a href="saved-jobs.html">Saved Jobs</a></li>
         <li class="auth-only" data-roles="freelancer"><a href="my-applications.html">My Applications</a></li>
-
-        <!-- visible only when logged in as client -->
         <li class="auth-only" data-roles="client"><a href="post-job.html">Post a Job</a></li>
         <li class="auth-only" data-roles="client"><a href="my-jobs.html">My Jobs</a></li>
       </ul>
     </nav>
-  </header>
-
-    <!-- Hero section introducing the platform -->
-    <main>
-        <section class="hero">
-            <img class="hero-image" src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1350&q=80" alt="Freelancers collaborating" />
-            <div class="hero-text">
-                <h1>Connecting Freelancers and Clients</h1>
-                <p>Freelancer Hub helps talented professionals find their next project while giving businesses access to a global pool of expertise.</p>
-            </div>
-        </section>
-
-        <section class="section services">
-            <h2>Our Services</h2>
-            <div class="service">
-                <h3>Job Matching</h3>
-                <p>We pair freelancers with clients based on skills, experience, and project needs.</p>
-            </div>
-            <div class="service">
-                <h3>Secure Contracts</h3>
-                <p>Manage agreements and payments through our built-in contract tools.</p>
-            </div>
-            <div class="service">
-                <h3>Community Support</h3>
-                <p>Access resources and forums to grow your freelance career.</p>
-            </div>
-        </section>
-
-        <section class="section testimonials">
-            <h2>Testimonials</h2>
-            <article class="testimonial">
-                <p>"Freelancer Hub helped me land my first big client!"</p>
-                <p>- Alex F.</p>
-            </article>
-            <article class="testimonial">
-                <p>"The platform makes hiring freelancers incredibly easy."</p>
-                <p>- Morgan S.</p>
-            </article>
-        </section>
-
-        <section class="section faqs">
-            <h2>FAQs</h2>
-            <details>
-                <summary>How do I register?</summary>
-                <p>Click the register button at the top of the page and fill out the form.</p>
-            </details>
-            <details>
-                <summary>Is there a cost to join?</summary>
-                <p>Freelancer Hub is free for both freelancers and clients.</p>
-            </details>
-        </section>
-    </main>
-
-    <!-- Footer with contact info, social links, and disclaimer -->
-    <footer class="site-footer">
-        <div class="contact">
-            <p>Contact: <a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
-            <p>
-                <a href="https://www.twitter.com/FreelancerHub" target="_blank" aria-label="Twitter">Twitter</a> |
-                <a href="https://www.linkedin.com/company/FreelancerHub" target="_blank" aria-label="LinkedIn">LinkedIn</a> |
-                <a href="https://www.facebook.com/FreelancerHub" target="_blank" aria-label="Facebook">Facebook</a>
-            </p>
-        </div>
-        <p class="disclaimer">This website is for a class assignment and not for commercial purposes.</p>
-    </footer>
-    
+    <div class="actions"></div>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="container wrap">
+      <h1>Find great talent. Land better gigs.</h1>
+      <p>Freelancer Hub connects clients and freelancers with a simple, fast, and beautiful experience.</p>
+      <div class="cta-row">
+        <a class="btn" href="job-listings.html">Browse Jobs</a>
+        <a class="btn ghost" href="register.html">Create an Account</a>
+      </div>
+    </div>
+  </section>
+  <section class="container section">
+    <div class="grid cols-3">
+      <div class="card stack">
+        <h3>Smart Matching</h3>
+        <p class="muted">Filter by skills, location, type, and more.</p>
+      </div>
+      <div class="card stack">
+        <h3>Secure & Simple</h3>
+        <p class="muted">Clear job details and transparent terms.</p>
+      </div>
+      <div class="card stack">
+        <h3>Built for Speed</h3>
+        <p class="muted">No clutter—just what you need.</p>
+      </div>
+    </div>
+  </section>
+  <section class="container section stack">
+    <h2>Our Services</h2>
+    <div class="card stack">
+      <h3>Job Matching</h3>
+      <p>We pair freelancers with clients based on skills, experience, and project needs.</p>
+    </div>
+    <div class="card stack">
+      <h3>Secure Contracts</h3>
+      <p>Manage agreements and payments through our built-in contract tools.</p>
+    </div>
+    <div class="card stack">
+      <h3>Community Support</h3>
+      <p>Access resources and forums to grow your freelance career.</p>
+    </div>
+  </section>
+  <section class="container section stack">
+    <h2>Testimonials</h2>
+    <article class="card stack">
+      <p>"Freelancer Hub helped me land my first big client!"</p>
+      <p class="muted">- Alex F.</p>
+    </article>
+    <article class="card stack">
+      <p>"The platform makes hiring freelancers incredibly easy."</p>
+      <p class="muted">- Morgan S.</p>
+    </article>
+  </section>
+  <section class="container section stack">
+    <h2>FAQs</h2>
+    <details class="card">
+      <summary>How do I register?</summary>
+      <p>Click the register button at the top of the page and fill out the form.</p>
+    </details>
+    <details class="card">
+      <summary>Is there a cost to join?</summary>
+      <p>Freelancer Hub is free for both freelancers and clients.</p>
+    </details>
+  </section>
+</main>
+<footer class="section" style="border-top:1px solid var(--border);">
+  <div class="container row" style="justify-content:space-between">
+    <p class="muted">© Freelancer Hub • Demo project</p>
+    <p class="muted"><a href="mailto:info@freelancerhub.com">info@freelancerhub.com</a></p>
+  </div>
+</footer>
 <script src="assets/js/auth-demo.js"></script>
 <script src="assets/js/ui.js"></script>
 <script src="assets/js/app-demo.js"></script>
