@@ -8,7 +8,8 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    color: #333;
+    color: var(--text);
+    background-color: var(--bg);
 }
 
 /* Header styles */
@@ -17,14 +18,15 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #ffffff;
+    background-color: var(--surface);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: var(--text);
 }
 
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #007bff;
+    color: var(--brand);
 }
 
 .navigation ul {
@@ -35,19 +37,26 @@ body {
 
 .navigation a {
     text-decoration: none;
-    color: #333;
-    transition: color 0.3s ease;
+    color: var(--text);
+    padding: 0.25rem 0;
+    background-image: linear-gradient(var(--brand), var(--brand));
+    background-size: 0% 2px;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    transition: color var(--speed-2) var(--easing), background-size var(--speed-2) var(--easing);
 }
 
-.navigation a:hover {
-    color: #007bff;
+.navigation a:hover,
+.navigation a.active {
+    color: var(--brand);
+    background-size: 100% 2px;
 }
 
 /* Reusable button style */
 .btn {
     padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--brand);
+    color: var(--brand-contrast);
     text-decoration: none;
     border: none;
     border-radius: 4px;
@@ -57,7 +66,7 @@ body {
 }
 
 .btn:hover {
-    background-color: #0056b3;
+    background-color: var(--brand);
 }
 
 .cta {
@@ -107,7 +116,7 @@ body {
 .job-search select {
     flex: 1 1 200px;
     padding: 0.5rem;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border);
     border-radius: 4px;
 }
 
@@ -123,8 +132,8 @@ body {
 }
 
 .job-card {
-    background: #ffffff;
-    border: 1px solid #ddd;
+    background: var(--surface);
+    border: 1px solid var(--border);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     padding: 1rem;
@@ -135,7 +144,7 @@ body {
 
 .job-card h3 {
     font-size: 1.2rem;
-    color: #007bff;
+    color: var(--brand);
 }
 
 .job-card .description {
@@ -155,27 +164,27 @@ body {
 
 .page-link {
     padding: 0.5rem 0.75rem;
-    border: 1px solid #007bff;
+    border: 1px solid var(--brand);
     text-decoration: none;
     border-radius: 4px;
 }
 
 /* Footer styles */
 .site-footer {
-    background: #f8f8f8;
+    background: var(--surface);
     text-align: center;
     padding: 2rem 1rem;
 }
 
 .site-footer .contact p a {
-    color: #007bff;
+    color: var(--brand);
     text-decoration: none;
 }
 
 .site-footer .disclaimer {
     margin-top: 1rem;
     font-size: 0.9rem;
-    color: #555;
+    color: var(--muted);
 }
 
 /* Generic section styling */
@@ -186,7 +195,7 @@ body {
 }
 
 .testimonials {
-    background: #f8f8f8;
+    background: var(--surface);
     border-radius: 8px;
     padding: 2rem 1rem;
 }
@@ -275,21 +284,21 @@ body {
 .profile-form textarea {
     width: 100%;
     padding: 0.5rem;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border);
     border-radius: 4px;
 }
 
 .save-btn {
     padding: 0.5rem 1rem;
-    background-color: #007bff;
-    color: #fff;
+    background-color: var(--brand);
+    color: var(--brand-contrast);
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 
 .logout-btn {
-    background-color: #dc3545;
+    background-color: #dc2626;
 }
 
 .job-list {
