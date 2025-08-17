@@ -17,6 +17,10 @@
   const write = (k, v) => localStorage.setItem(k, JSON.stringify(v));
   const uniqId = () => Date.now() + Math.floor(Math.random()*100000);
 
+  const jobsChangedCbs = [];
+  const notifyJobsChanged = () => jobsChangedCbs.forEach(cb => { try{cb(listJobs());}catch(e){} });
+  const onJobsChanged = (cb) => { jobsChangedCbs.push(cb); };
+
   // ---------- auth wiring ----------
   const currentUser = () => {
     try { return JSON.parse(localStorage.getItem('fh_user')) || null; }
@@ -70,11 +74,13 @@
     };
     jobs.unshift(newJob);
     write(JOBS_KEY, jobs);
+    notifyJobsChanged();
     return newJob;
   };
   const deleteJob = (jobId) => {
     const jobs = listJobs().filter(j => j.id !== jobId);
     write(JOBS_KEY, jobs);
+    notifyJobsChanged();
     // remove related apps
     const apps = read(APPS_KEY, []).filter(a => a.jobId !== jobId);
     write(APPS_KEY, apps);
@@ -135,10 +141,10 @@
     return node;
   };
 
-  function renderJobs(containerSel) {
+  function renderJobs(containerSel, jobsOverride) {
     const c = ensureNode(containerSel);
     const u = currentUser();
-    const jobs = listJobs();
+    const jobs = jobsOverride || listJobs();
 
     if (!jobs.length) { c.innerHTML = '<p>No jobs yet.</p>'; return; }
 
@@ -169,20 +175,38 @@
 
       if (saveBtn && u) {
         saveBtn.addEventListener('click', () => {
-          if (isSaved(id, u.email)) { unsaveJob(id, u.email); saveBtn.textContent = 'Save'; }
-          else { saveJob(id, u.email); saveBtn.textContent = 'Unsave'; }
+          if (isSaved(id, u.email)) {
+            unsaveJob(id, u.email); saveBtn.textContent = 'Save';
+            UI && UI.toast('Removed from saved');
+          } else {
+            saveJob(id, u.email); saveBtn.textContent = 'Unsave';
+            UI && UI.toast('Job saved', 'success');
+          }
         });
       }
       if (applyBtn && u) {
         applyBtn.addEventListener('click', () => {
-          const cover = prompt('Cover letter (optional):', '');
-          applyToJob({ jobId:id, freelancerEmail:u.email, coverLetter:cover || '' });
-          alert('Application submitted.');
+          UI.modal({
+            title: 'Apply to job',
+            contentHTML: '<textarea id="cover" rows="4" style="width:100%" placeholder="Cover letter"></textarea>',
+            submitText: 'Submit',
+            onSubmit: () => {
+              const cover = document.getElementById('cover').value;
+              applyToJob({ jobId:id, freelancerEmail:u.email, coverLetter:cover || '' });
+              UI && UI.toast('Application submitted','success');
+            }
+          });
         });
       }
       if (delBtn) {
         delBtn.addEventListener('click', () => {
-          if (confirm('Delete this job?')) { deleteJob(id); renderJobs(containerSel); }
+          UI.modal({
+            title: 'Delete this job?',
+            submitText: 'Delete',
+            onSubmit: () => { deleteJob(id); UI && UI.toast('Job deleted','success'); renderJobs(containerSel); },
+            cancelText: 'Cancel',
+            contentHTML: '<p>Are you sure you want to delete this job?</p>'
+          });
         });
       }
     });
@@ -330,6 +354,7 @@
     applyToJob, listMyApplications,
     // renderers
     renderJobs, renderSavedJobs, renderMyApplications, renderMyJobs,
-    renderFreelancerStats, renderClientStats, renderProfileLinks
+    renderFreelancerStats, renderClientStats, renderProfileLinks,
+    onJobsChanged
   };
 })();
