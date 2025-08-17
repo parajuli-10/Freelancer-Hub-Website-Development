@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Job Listings - Freelancer Hub</title>
     <link rel="stylesheet" href="style.css" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="assets/site.webmanifest">
+<link rel="stylesheet" href="assets/css/theme.css">
+<script src="https://unpkg.com/feather-icons"></script>
+<script>document.addEventListener('DOMContentLoaded', () => { if (window.feather) feather.replace(); });</script>
 </head>
 <body>
     <header class="site-header">
@@ -37,6 +44,13 @@
 <main>
   <section class="section" style="max-width:1000px;margin:2rem auto;padding:0 1rem;">
     <h1>Job Listings</h1>
+    <form id="job-filters" class="filters">
+      <input id="f-q" placeholder="Search roles or skills">
+      <input id="f-loc" placeholder="Location">
+      <select id="f-type"><option value="">Any type</option><option>Full-time</option><option>Part-time</option><option>Contract</option><option>Internship</option></select>
+      <input id="f-salary" type="number" min="0" step="1000" placeholder="Min salary">
+      <select id="f-sort"><option value="new">Newest</option><option value="sal-asc">Salary ↑</option><option value="sal-desc">Salary ↓</option></select>
+    </form>
     <div id="job-list"></div>
   </section>
 </main>
@@ -52,10 +66,49 @@
         <p class="disclaimer">This website is for a class assignment and not for commercial purposes.</p>
     </footer>
 <script src="assets/js/auth-demo.js"></script>
+<script src="assets/js/ui.js"></script>
 <script src="assets/js/app-demo.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    window.appDemo.renderJobs('#job-list');
+    const list = document.getElementById('job-list');
+    const form = document.getElementById('job-filters');
+    const KEY = 'FH_FILTERS';
+    const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+    if(saved.q) document.getElementById('f-q').value = saved.q;
+    if(saved.loc) document.getElementById('f-loc').value = saved.loc;
+    if(saved.type) document.getElementById('f-type').value = saved.type;
+    if(saved.min) document.getElementById('f-salary').value = saved.min;
+    if(saved.sort) document.getElementById('f-sort').value = saved.sort;
+    function getFilters(){
+      return {
+        q: document.getElementById('f-q').value.toLowerCase(),
+        loc: document.getElementById('f-loc').value.toLowerCase(),
+        type: document.getElementById('f-type').value,
+        min: Number(document.getElementById('f-salary').value) || 0,
+        sort: document.getElementById('f-sort').value
+      };
+    }
+    function render(){
+      const f = getFilters();
+      localStorage.setItem(KEY, JSON.stringify(f));
+      list.innerHTML = UI.skeleton(3,3);
+      setTimeout(() => {
+        let jobs = window.appDemo.listJobs();
+        jobs = jobs.filter(j =>
+          (!f.q || j.title.toLowerCase().includes(f.q) || j.description.toLowerCase().includes(f.q)) &&
+          (!f.loc || j.location.toLowerCase().includes(f.loc)) &&
+          (!f.type || j.employmentType === f.type) &&
+          (!f.min || j.salary >= f.min)
+        );
+        if(f.sort === 'sal-asc') jobs.sort((a,b)=>a.salary-b.salary);
+        else if(f.sort === 'sal-desc') jobs.sort((a,b)=>b.salary-a.salary);
+        else jobs.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+        window.appDemo.renderJobs('#job-list', jobs);
+      }, 300);
+    }
+    form.addEventListener('input', render);
+    render();
+    window.appDemo.onJobsChanged(render);
   });
 </script>
 </body>
