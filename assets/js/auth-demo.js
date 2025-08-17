@@ -1,18 +1,21 @@
+// assets/js/auth-demo.js
 (function () {
   // ------------------ preview-aware navigation helpers ------------------
   function isPreviewHost() {
     const h = location.hostname.toLowerCase();
-    return h === 'html-preview.github.io' || h === 'review.github.io';
+    // support common wrappers
+    return h === 'html-preview.github.io' || h === 'review.github.io' || h === 'htmlpreview.github.io';
   }
 
   /** Build a preview-safe URL to another HTML file in the SAME repo/branch */
   function buildPreviewUrl(targetFile) {
     if (!isPreviewHost()) return targetFile; // normal hosting
     const here = new URL(location.href);
-    const raw = here.searchParams.get('url');
-    if (!raw) return targetFile; // fallback: not in a wrapper
+    // html-preview/review use ?url=<raw-github-url>
+    const raw = here.searchParams.get('url') || here.searchParams.get('q') || here.searchParams.get('src');
+    if (!raw) return targetFile; // fallback: not in a wrapper with param
     const rawUrl = new URL(raw);
-    // replace the last path segment (filename) with targetFile
+    // replace last path segment (filename) with targetFile
     rawUrl.pathname = rawUrl.pathname.replace(/[^/]+$/, targetFile);
     const next = new URL(here.origin + here.pathname);
     next.searchParams.set('url', rawUrl.toString());
@@ -46,10 +49,8 @@
     const u = getUser();
     const authed = !!u;
 
-    // elements visible only when logged OUT
     document.querySelectorAll('.guest-only').forEach(el => { el.hidden = authed; });
 
-    // elements visible only when logged IN (optionally by role)
     document.querySelectorAll('.auth-only').forEach(el => {
       if (!authed) { el.hidden = true; return; }
       const roles = (el.dataset.roles || 'any').split(',').map(s => s.trim().toLowerCase());
@@ -110,28 +111,8 @@
     if (!u) { location.replace(buildPreviewUrl('login.html')); return; }
     const target = document.getElementById('welcome');
     if (target) target.textContent = `Welcome, ${u.email} (${u.user_type})`;
-
-    // Optional: render role links if a container exists
-    const links = document.getElementById('role-links');
-    if (links) {
-      if ((u.user_type || '').toLowerCase() === 'freelancer') {
-        links.innerHTML = `
-          <ul>
-            <li><a class="btn" href="freelancer-dashboard.html">Freelancer Dashboard</a></li>
-            <li><a class="btn" href="saved-jobs.html">Saved Jobs</a></li>
-            <li><a class="btn" href="my-applications.html">My Applications</a></li>
-          </ul>`;
-      } else {
-        links.innerHTML = `
-          <ul>
-            <li><a class="btn" href="client-dashboard.html">Client Dashboard</a></li>
-            <li><a class="btn" href="post-job.html">Post a Job</a></li>
-            <li><a class="btn" href="my-jobs.html">My Jobs</a></li>
-          </ul>`;
-      }
-      // make those links preview-safe too
-      rewriteInternalLinks();
-    }
+    // if you render role links here, rewrite them for preview:
+    setTimeout(rewriteInternalLinks, 0);
   }
 
   function onLogoutPage() {
@@ -156,6 +137,7 @@
     route();
   });
 
-  // expose helpers if needed elsewhere (e.g., other scripts)
-  window.previewNav = { go, buildPreviewUrl, isPreviewHost, rewriteInternalLinks };
+  // expose for other scripts if needed
+  window.previewNav = { go, buildPreviewUrl };
 })();
+
