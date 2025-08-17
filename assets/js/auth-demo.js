@@ -1,3 +1,30 @@
+// preview-aware helpers
+function buildPreviewUrl(targetFile) {
+  const here = new URL(location.href);
+  if (here.hostname !== 'html-preview.github.io') return targetFile; // normal hosting
+  const raw = here.searchParams.get('url');
+  if (!raw) return targetFile;
+  const rawUrl = new URL(raw);
+  rawUrl.pathname = rawUrl.pathname.replace(/[^/]+$/, targetFile);
+  const next = new URL(here.origin + here.pathname);
+  next.searchParams.set('url', rawUrl.toString());
+  return next.toString();
+}
+
+function go(targetFile) {
+  location.href = buildPreviewUrl(targetFile);
+}
+
+function rewriteInternalLinks() {
+  const isPreview = location.hostname === 'html-preview.github.io';
+  if (!isPreview) return;
+  document.querySelectorAll('a[href$=".html"]').forEach(a => {
+    const href = a.getAttribute('href');
+    if (/^(https?:)?\/\//i.test(href) || /^(mailto:|tel:)/i.test(href)) return;
+    a.setAttribute('href', buildPreviewUrl(href));
+  });
+}
+
 (function () {
   const KEY = 'fh_user';
 
@@ -40,7 +67,7 @@
 
       setUser({ email, user_type: userType });
       updateNav();
-      window.location.href = 'profile.html';
+      go('profile.html');
     });
   }
 
@@ -64,13 +91,13 @@
 
       setUser({ email, user_type: userType });
       updateNav();
-      window.location.href = 'profile.html';
+      go('profile.html');
     });
   }
 
   function onProfilePage() {
     const u = getUser();
-    if (!u) { window.location.replace('login.html'); return; }
+    if (!u) { go('login.html'); return; }
     const target = document.getElementById('welcome');
     if (target) target.textContent = `Welcome, ${u.email} (${u.user_type})`;
   }
@@ -78,7 +105,7 @@
   function onLogoutPage() {
     clearUser();
     updateNav();
-    window.location.replace('index.html');
+    go('index.html');
   }
 
   function route() {
@@ -89,5 +116,9 @@
     else if (page.includes('logout.html')) onLogoutPage();
   }
 
-  document.addEventListener('DOMContentLoaded', () => { updateNav(); route(); });
+  document.addEventListener('DOMContentLoaded', () => {
+    rewriteInternalLinks();
+    updateNav();
+    route();
+  });
 })();
