@@ -25,9 +25,9 @@
 
   const requireAuth = (role /* 'freelancer' | 'client' | undefined */) => {
     const u = currentUser();
-    if (!u) { location.replace('login.html'); return false; }
+    if (!u) { go('login.html'); return false; }
     if (role && (u.user_type || '').toLowerCase() !== role.toLowerCase()) {
-      location.replace('profile.html'); return false;
+      go('profile.html'); return false;
     }
     return true;
   };
